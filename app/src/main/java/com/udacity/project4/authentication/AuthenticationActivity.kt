@@ -3,10 +3,13 @@ package com.udacity.project4.authentication
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.udacity.project4.R
 import com.udacity.project4.databinding.ActivityAuthenticationBinding
+import com.udacity.project4.locationreminders.RemindersActivity
 
 
 /**
@@ -39,7 +42,16 @@ override fun onCreate(savedInstanceState: Bundle?) {
         if(requestCode== SIGN_IN_RESULT_CODE){
             val response =IdpResponse.fromResultIntentd(data)
         }
-        if(resultCode== Activity.Result_OK)
+        if(resultCode== Activity.Result_OK){
+            Log.i(
+                TAG,
+                "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
+            )
+            Toast.makeText(this,"Signed In Successfully",Toast.LENGTH_LONG).show()
+            val intnet=Intent(this,RemindersActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 
